@@ -9,13 +9,13 @@
   - [ ] Services
     - [ ] User Service
       - [ ] Auth Routes
-        - [ ] Register
-        - [ ] Login
-        - [ ] Logout
+        - [x] Register
+        - [x] Login
+        - [x] Logout
       - [ ] Profile Management
         - [ ] Update Profile
         - [ ] Delete Profile
-    - [ ] URL Service
+    - [x] URL Service
   - [ ] GPU Worker
   - [ ] Job Manager
   - [ ] Output Manager
