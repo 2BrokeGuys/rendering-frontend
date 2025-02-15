@@ -1,0 +1,26 @@
+# TODO
+
+- [ ] Frontend
+- [ ] Backend
+  - [ ] Setup Docker Compose
+  - [ ] Gateway
+    - [ ] Verify Auth
+    - [ ] Rate Limiting
+  - [ ] Services
+    - [ ] User Service
+      - [ ] Auth Routes
+        - [ ] Register
+        - [ ] Login
+        - [ ] Logout
+      - [ ] Profile Management
+        - [ ] Update Profile
+        - [ ] Delete Profile
+    - [ ] URL Service
+  - [ ] GPU Worker
+  - [ ] Job Manager
+  - [ ] Output Manager
+  - [ ] RabbitMQ (Job Queue)
+  - [ ] Platform Database (PostgreSQL)
+  - [ ] Object Storage Service (Minio)
+    - [ ] Raw file Storage
+    - [ ] Rendered Outputs Storage
