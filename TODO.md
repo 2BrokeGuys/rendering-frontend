@@ -4,8 +4,11 @@
 - [ ] Backend
   - [ ] Setup Docker Compose
   - [ ] Gateway
-    - [ ] Verify Auth
-    - [ ] Rate Limiting
+    - [ ] Route Requests
+      - [x] Auth Service
+      - [x] URL Service
+      - [ ] Job Manager
+    - [x] Verify Auth
   - [ ] Services
     - [ ] User Service
       - [ ] Auth Routes
@@ -18,6 +21,7 @@
     - [ ] URL Service
   - [ ] GPU Worker
   - [ ] Job Manager
+    - [ ] Rate Limiting
   - [ ] Output Manager
   - [ ] RabbitMQ (Job Queue)
   - [ ] Platform Database (PostgreSQL)
