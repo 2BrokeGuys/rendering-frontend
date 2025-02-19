@@ -7,7 +7,7 @@
     - [ ] Route Requests
       - [x] Auth Service
       - [x] URL Service
-      - [ ] Job Manager
+      - [x] Job Manager
     - [x] Verify Auth
   - [ ] Services
     - [ ] User Service
@@ -20,7 +20,7 @@
         - [ ] Delete Profile
     - [x] URL Service
   - [ ] GPU Worker
-  - [ ] Job Manager
+  - [x] Job Manager
     - [ ] Rate Limiting
   - [ ] Output Manager
   - [ ] RabbitMQ (Job Queue)
