@@ -3,8 +3,8 @@
 - [ ] Frontend
 - [ ] Backend
   - [ ] Setup Docker Compose
-  - [ ] Gateway
-    - [ ] Route Requests
+  - [x] Gateway
+    - [x] Route Requests
       - [x] Auth Service
       - [x] URL Service
       - [x] Job Manager
@@ -15,6 +15,7 @@
         - [x] Register
         - [x] Login
         - [x] Logout
+        - [ ] OAuth2 (Google)
       - [ ] Profile Management
         - [ ] Update Profile
         - [ ] Delete Profile
@@ -25,6 +26,9 @@
   - [ ] Output Manager
   - [ ] RabbitMQ (Job Queue)
   - [ ] Platform Database (PostgreSQL)
+    - [ ] Design Schemas
   - [ ] Object Storage Service (Minio)
-    - [ ] Raw file Storage
-    - [ ] Rendered Outputs Storage
+    - [x] Docker Setup
+    - [ ] Interaction Code
+      - [ ] Raw file Storage
+      - [ ] Rendered Outputs Storage
