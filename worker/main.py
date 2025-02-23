@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 origins = [
-    "http://localhost:5173",
+    "http://localhost:3000",
 ]
 
 app.add_middleware(
@@ -25,10 +25,6 @@ OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
 
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
-
-@app.get('/')
-async def simple_func():
-    return {"msg": "It works"}
 
 @app.post("/render/")
 async def render_blend(file: UploadFile = File(...)):
