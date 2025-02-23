@@ -1,6 +1,7 @@
 # TODO
 
 - [ ] Frontend
+  - [ ] Rate Limiting
 - [ ] Backend
   - [ ] Setup Docker Compose
   - [x] Gateway
@@ -10,19 +11,12 @@
       - [x] Job Manager
     - [x] Verify Auth
   - [ ] Services
-    - [ ] User Service
-      - [ ] Auth Routes
-        - [x] Register
-        - [x] Login
-        - [x] Logout
-        - [ ] OAuth2 (Google)
-      - [ ] Profile Management
-        - [ ] Update Profile
-        - [ ] Delete Profile
+    - [ ] Profile Management
+      - [ ] Update Profile
+      - [ ] Delete Profile
     - [x] URL Service
   - [ ] GPU Worker
   - [x] Job Manager
-    - [ ] Rate Limiting
   - [ ] Output Manager
   - [ ] RabbitMQ (Job Queue)
   - [ ] Platform Database (PostgreSQL)
