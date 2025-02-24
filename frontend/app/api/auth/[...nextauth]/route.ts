@@ -10,9 +10,6 @@ export const authOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  pages: {
-    signIn: "/login",
-  },
   callbacks: {
     async session({ session, token }: { session: any; token: JWT }) {
       session.user.id = token.sub;
