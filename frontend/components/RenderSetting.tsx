@@ -66,13 +66,13 @@ export const RenderSettings = ({ onRender }: RenderSettingsProps) => {
             defaultValue={[50]}
             max={100}
             step={1}
-            className="w-full"
+            className="w-full bg-slate-200"
           />
         </div>
       </div>
 
       <Button 
-        className="w-full"
+        className="w-full border-2 border-white rounded-md"
         onClick={onRender}
       >
         <Play className="w-4 h-4 mr-2" />
