@@ -7,7 +7,6 @@ import { ModelPreview } from '@/components/ModelPreview';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
-import HeroSection from '@/components/HeroSection';
 
 const Page = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -42,8 +41,7 @@ const Page = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-6">
-      <HeroSection/>
+    <div className="min-h-screen bg-black text-white p-6 my-12">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold tracking-tight">3D Model Renderer</h1>

@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@auth/core": "^0.37.4",
+    "@auth/core": "^0.34.2",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-progress": "^1.1.2",
     "@radix-ui/react-select": "^2.1.6",

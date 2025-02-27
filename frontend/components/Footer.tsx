@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Facebook, Twitter, Instagram, Linkedin, Send } from "lucide-react"
+import {  Twitter, Linkedin, Send } from "lucide-react"
 
 const Footer = () => {
   return (
@@ -25,7 +25,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link href="#features" className="text-gray-400 hover:text-white transition-colors">
-                  Features
+                  About
                 </Link>
               </li>
               <li>
@@ -35,7 +35,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link href="#contact" className="text-gray-400 hover:text-white transition-colors">
-                  Contact
+                  Login
                 </Link>
               </li>
             </ul>

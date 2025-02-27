@@ -19,16 +19,16 @@ const Navbar = () => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <Link
-                href="#"
+                href="/"
                 className="text-gray-300 hover:text-lime px-3 py-2 rounded-lg text-sm font-semibold"
               >
                 Home
               </Link>
               <Link
-                href="#"
+                href="/about"
                 className="text-gray-300 hover:text-lime px-3 py-2 rounded-lg text-sm font-semibold"
               >
-                Features
+                About
               </Link>
               <Link
                 href="#"
@@ -37,10 +37,10 @@ const Navbar = () => {
                 Pricing
               </Link>
               <Link
-                href="#"
+                href="/login"
                 className="text-gray-300 hover:text-lime px-3 py-2 rounded-lg text-sm font-semibold"
               >
-                Contact
+                Login
               </Link>
             </div>
           </div>
