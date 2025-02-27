@@ -51,12 +51,12 @@ main {
 }
 
 .settings-panel {
-  @apply bg-card text-black rounded-lg p-6 shadow-lg backdrop-blur-sm;
+  @apply bg-card rounded-lg p-6 shadow-lg backdrop-blur-sm;
 }
 
 .fancy-scroll {
   scrollbar-width: thin;
-  scrollbar-color: hsl(var(--primary)) transparent;
+  scrollbar-color: hsl(var(--primary));
 }
 
 .fancy-scroll::-webkit-scrollbar {
@@ -99,5 +99,6 @@ main {
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }

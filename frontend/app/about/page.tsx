@@ -1,10 +1,10 @@
-import { Button } from '@/components/ui/button'
 import { ArrowRight, ChevronRight, Download, FileUp, Play, Settings } from 'lucide-react'
+import Link from 'next/link'
 import React from 'react'
 
 function page() {
   return (
-    <div className="container ">
+    <div className="container h-screen items-center flex flex-col justify-center">
               <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
                 
                 <h2 className="text-3xl md:text-4xl font-bold">Four simple steps to stunning renders</h2>
@@ -55,10 +55,11 @@ function page() {
               </div>
 
               <div className="mt-16 text-center">
-                <Button size="lg" className="gap-2">
+                <Link href="/main" className='flex justify-center items-center gap-2 border border-slate-300 rounded-xl p-4'>
                   Try It Now
-                  <ArrowRight className="size-4" />
-                </Button>
+                  <ArrowRight className="size-5" />
+                </Link>
+                
               </div>
             </div>
   )

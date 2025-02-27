@@ -7,24 +7,22 @@ import { Button } from "./ui/button"
 const Navbar = () => {
  
   return (
-   
-    <div className="max-w-screen-xl justify-evenly mx-auto sm:px-6 lg:px-8">
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container flex h-16 items-center justify-between">
             <div className="flex items-center gap-2">
               <Link href={"/"} className="text-xl font-bold">RenderBro</Link>
             </div>
             <nav className="hidden md:flex items-center gap-6">
-              <Link href="/about" className="text-sm font-medium hover:text-primary">
+              <Link href="/about" className="text-sm font-medium  hover:translate-y-1/4">
                 How It Works
               </Link>
-              <Link href="/pricing" className="text-sm font-medium hover:text-primary">
+              <Link href="/pricing" className="text-sm font-medium  hover:translate-y-1/4">
                 Pricing
               </Link>
-              <Link href="/dashboard" className="text-sm font-medium hover:text-primary">
+              <Link href="/dashboard" className="text-sm font-medium  hover:translate-y-1/4">
                 Dashboard
               </Link>
-              <Link href="#resources" className="text-sm font-medium hover:text-primary">
+              <Link href="#resources" className="text-sm font-medium  hover:translate-y-1/4">
                 Resources
               </Link>
             </nav>
@@ -36,7 +34,6 @@ const Navbar = () => {
               </div>
           </div>
         </header>
-    </div>
     
   )
 }
