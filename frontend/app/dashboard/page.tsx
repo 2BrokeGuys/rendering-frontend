@@ -5,6 +5,7 @@
 import { useSession } from "next-auth/react";
 import LogoutButton from "@/components/LogoutButton";
 
+
 export default function Dashboard() {
   const { data: session } = useSession();
 

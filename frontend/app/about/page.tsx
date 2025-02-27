@@ -1,8 +1,66 @@
+import { Button } from '@/components/ui/button'
+import { ArrowRight, ChevronRight, Download, FileUp, Play, Settings } from 'lucide-react'
 import React from 'react'
 
 function page() {
   return (
-    <div className='justify-center items-center flex'>About</div>
+    <div className="container ">
+              <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                
+                <h2 className="text-3xl md:text-4xl font-bold">Four simple steps to stunning renders</h2>
+                <p className="text-muted-foreground text-lg">
+                  Our streamlined process gets you from upload to final render with minimal friction.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {[
+                  {
+                    icon: FileUp,
+                    title: "Upload Your Project",
+                    description: "Drag and drop your project files or connect directly from your 3D software.",
+                  },
+                  {
+                    icon: Settings,
+                    title: "Configure Settings",
+                    description: "Set resolution, quality, and other parameters with our intuitive interface.",
+                  },
+                  {
+                    icon: Play,
+                    title: "Submit for Rendering",
+                    description: "Click render and watch as our cloud infrastructure processes your project.",
+                  },
+                  {
+                    icon: Download,
+                    title: "Download Your Render",
+                    description: "Get your completed renders in multiple formats, ready for use.",
+                  },
+                ].map((step, i) => (
+                  <div key={i} className="relative">
+                    <div className="flex flex-col items-center text-center space-y-4 p-6">
+                      <div className="relative">
+                        <div className="absolute -inset-3 rounded-full bg-primary/10 animate-pulse" />
+                        <div className="relative size-16 rounded-full bg-primary/20 flex items-center justify-center">
+                          <step.icon className="size-8 text-primary" />
+                        </div>
+                        <div className="absolute top-1/2 -right-1/2 transform -translate-y-1/2 hidden lg:block">
+                          {i < 3 && <ChevronRight className="size-8 text-muted-foreground" />}
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-bold">{step.title}</h3>
+                      <p className="text-muted-foreground">{step.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-16 text-center">
+                <Button size="lg" className="gap-2">
+                  Try It Now
+                  <ArrowRight className="size-4" />
+                </Button>
+              </div>
+            </div>
   )
 }
 

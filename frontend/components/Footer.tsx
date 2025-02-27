@@ -3,8 +3,8 @@ import {  Twitter, Linkedin, Send } from "lucide-react"
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-950 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="bg-black text-white">
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
@@ -24,18 +24,23 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="#features" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="#pricing" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/pricing" className="text-gray-400 hover:text-white transition-colors">
                   Pricing
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/login" className="text-gray-400 hover:text-white transition-colors">
                   Login
+                </Link>
+              </li>
+              <li>
+                <Link href="/profile" className="text-gray-400 hover:text-white transition-colors">
+                  Profile
                 </Link>
               </li>
             </ul>

@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindAnimate from 'tailwindcss-animate';
 
 export default {
     darkMode: ["class"],
@@ -8,6 +9,13 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+	container: {
+		center: true,
+		padding: "2rem",
+		screens: {
+		  "2xl": "1280px",
+		},
+	  },
   	extend: {
   		colors: {
 			lime: '#C7F41C',
@@ -58,8 +66,10 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+	
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins:  [tailwindAnimate],
 } satisfies Config;
+

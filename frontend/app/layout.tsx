@@ -10,7 +10,7 @@ const TekturSans = Tektur({
 })
 
 export const metadata: Metadata = {
-  title: "RenderPro",
+  title: "RenderBro",
   description: "A realtime 3D rendering tool",
 };
 
