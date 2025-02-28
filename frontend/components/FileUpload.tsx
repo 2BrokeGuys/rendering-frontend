@@ -55,12 +55,12 @@ export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
         {...getRootProps()}
         className={`dropzone ${isDragActive ? 'active' : ''} group`}
       >
-        <input {...getInputProps()} />
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+        <input {...getInputProps()} className='gap-2' />
+        <div className="flex flex-col items-center gap-4 ">
+          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300 my-2">
             <Upload className="w-8 h-8 text-primary" />
           </div>
-          <div className="text-center">
+          <div className="text-center py-2 my-2">
             <h3 className="text-lg font-semibold">Drag & Drop your 3D model here</h3>
             <p className="text-sm text-muted-foreground mt-1">
               or click to select files
@@ -69,7 +69,7 @@ export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
               Supports .fbx files up to 100MB
             </p>
           </div>
-          <Button variant="outline" className="mt-4">
+          <Button variant="outline" className="mt-4 rounded-xl">
             <File className="w-4 h-4 mr-2" />
             Select File
           </Button>
