@@ -1,28 +1,30 @@
 # TODO
 
 - [ ] Frontend
-  - [ ] Rate Limiting
+  - [ ] Pages
+    - [ ] Landing Page
+    - [ ] Dashboard Page
+    - [ ] Profile Page
+    - [ ] Rendering Page
+    - [ ] Pricing
+    - [ ] Buy Credits Page
+  - [ ] API Integration
 - [ ] Backend
+  - [ ] Profile Management
+    - [ ] Update Profile
+    - [ ] Delete Profile
   - [ ] Setup Docker Compose
-  - [x] Gateway
-    - [x] Route Requests
-      - [x] Auth Service
-      - [x] URL Service
-      - [x] Job Manager
-    - [x] Verify Auth
-  - [ ] Services
-    - [ ] Profile Management
-      - [ ] Update Profile
-      - [ ] Delete Profile
-    - [x] URL Service
+  - [ ] MinIO Integration
+  - [x] OAuth2 Integration
+  - [ ] Database Schema Design
+  - [ ] Rate Limiting
   - [ ] GPU Worker
-  - [x] Job Manager
   - [ ] Output Manager
   - [ ] RabbitMQ (Job Queue)
   - [ ] Platform Database (PostgreSQL)
     - [ ] Design Schemas
+    - [ ] Integration w/ Frontend
   - [ ] Object Storage Service (Minio)
-    - [x] Docker Setup
     - [ ] Interaction Code
       - [ ] Raw file Storage
       - [ ] Rendered Outputs Storage
