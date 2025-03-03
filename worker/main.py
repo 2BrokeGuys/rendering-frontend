@@ -46,6 +46,11 @@ async def render_blend(file: UploadFile = File(...)):
 
     render_command = [
         "blender", "-b", blend_path,  # Run in background
+        "--python-expr", 
+        "import bpy; bpy.context.scene.render.engine = 'CYCLES'; "
+        "bpy.context.preferences.addons['cycles'].preferences.compute_device_type = 'CUDA'; "
+        "for device in bpy.context.preferences.addons['cycles'].preferences.get_devices(): "
+        "device.use = True",  # Enable all CUDA devices
         "-o", output_base,  # Output path (without extension)
         "-F", "PNG", "-x", "1",  # PNG format with auto extension
         "-f", "1"  # Render frame 1
