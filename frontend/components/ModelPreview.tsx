@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
-import { toast } from '@/hooks/use-toast';
+import React, { useEffect, useRef } from "react";
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
+import { toast } from "@/hooks/use-toast";
 
 interface ModelPreviewProps {
   file: File | null;
@@ -34,12 +34,15 @@ export const ModelPreview = ({ file }: ModelPreviewProps) => {
     cameraRef.current = camera;
 
     // Setup renderer with better quality settings
-    const renderer = new THREE.WebGLRenderer({ 
+    const renderer = new THREE.WebGLRenderer({
       antialias: true,
       powerPreference: "high-performance",
     });
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
+    renderer.setSize(
+      containerRef.current.clientWidth,
+      containerRef.current.clientHeight
+    );
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     containerRef.current.appendChild(renderer.domElement);
@@ -82,20 +85,20 @@ export const ModelPreview = ({ file }: ModelPreviewProps) => {
       if (!containerRef.current) return;
       const width = containerRef.current.clientWidth;
       const height = containerRef.current.clientHeight;
-      
+
       if (cameraRef.current) {
         cameraRef.current.aspect = width / height;
         cameraRef.current.updateProjectionMatrix();
       }
-      
+
       renderer.setSize(width, height);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Cleanup
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
       renderer.dispose();
       containerRef.current?.removeChild(renderer.domElement);
     };
@@ -108,12 +111,14 @@ export const ModelPreview = ({ file }: ModelPreviewProps) => {
     const objectURL = URL.createObjectURL(file);
 
     // Clear existing model
-    const existingMeshes = sceneRef.current.children.filter(child => child instanceof THREE.Mesh);
-    existingMeshes.forEach(mesh => {
+    const existingMeshes = sceneRef.current.children.filter(
+      (child) => child instanceof THREE.Mesh
+    );
+    existingMeshes.forEach((mesh) => {
       if (mesh.geometry) mesh.geometry.dispose();
       if (mesh.material) {
         if (Array.isArray(mesh.material)) {
-          mesh.material.forEach(mat => mat.dispose());
+          mesh.material.forEach((mat) => mat.dispose());
         } else {
           mesh.material.dispose();
         }
@@ -138,12 +143,16 @@ export const ModelPreview = ({ file }: ModelPreviewProps) => {
             // Try to preserve original material properties if they exist
             if (child.material) {
               const oldMaterial = child.material as THREE.Material;
-              if ('color' in oldMaterial) {
-                newMaterial.color = (oldMaterial as THREE.MeshStandardMaterial).color;
+              if ("color" in oldMaterial) {
+                newMaterial.color = (
+                  oldMaterial as THREE.MeshStandardMaterial
+                ).color;
               }
-              if ('map' in oldMaterial && (oldMaterial as any).map) {
+              /* eslint-disable */
+              if ("map" in oldMaterial && (oldMaterial as any).map) {
                 newMaterial.map = (oldMaterial as any).map;
               }
+              /* eslint-enable */
             }
 
             // Apply the new material
@@ -184,11 +193,12 @@ export const ModelPreview = ({ file }: ModelPreviewProps) => {
         console.log(`Loading: ${Math.round(progress)}%`);
       },
       (error) => {
-        console.error('Error loading FBX:', error);
+        console.error("Error loading FBX:", error);
         toast({
           title: "Error loading model",
-          description: "There was an error loading the 3D model. Please try a different file.",
-          variant: "destructive"
+          description:
+            "There was an error loading the 3D model. Please try a different file.",
+          variant: "destructive",
         });
       }
     );
@@ -196,7 +206,5 @@ export const ModelPreview = ({ file }: ModelPreviewProps) => {
     return () => URL.revokeObjectURL(objectURL);
   }, [file]);
 
-  return (
-    <div ref={containerRef} className="preview-container" />
-  );
+  return <div ref={containerRef} className="preview-container" />;
 };
