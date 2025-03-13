@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { Upload, File } from 'lucide-react';
-import { toast } from '@/hooks/use-toast';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
+import React, { useCallback, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { Upload, File } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 
 interface FileUploadProps {
   onFileSelect: (file: File) => void;
@@ -14,16 +14,16 @@ export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
-    if (file && file.name.endsWith('.fbx')) {
+    if (file && file.name.endsWith(".fbx")) {
       simulateUpload(file);
     } else {
       toast({
         title: "Invalid file",
         description: "Please upload a .fbx file",
-        variant: "destructive"
+        variant: "destructive",
       });
     }
-  }, [onFileSelect]);
+  }, []);
 
   const simulateUpload = (file: File) => {
     let progress = 0;
@@ -35,7 +35,7 @@ export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
         onFileSelect(file);
         toast({
           title: "Upload complete",
-          description: "Your file has been uploaded successfully"
+          description: "Your file has been uploaded successfully",
         });
       }
     }, 100);
@@ -44,24 +44,26 @@ export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'application/octet-stream': ['.fbx']
+      "application/octet-stream": [".fbx"],
     },
-    multiple: false
+    multiple: false,
   });
 
   return (
     <div className="w-full max-w-2xl mx-auto">
       <div
         {...getRootProps()}
-        className={`dropzone ${isDragActive ? 'active' : ''} group`}
+        className={`dropzone ${isDragActive ? "active" : ""} group`}
       >
-        <input {...getInputProps()} className='gap-2' />
+        <input {...getInputProps()} className="gap-2" />
         <div className="flex flex-col items-center gap-4 ">
           <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300 my-2">
             <Upload className="w-8 h-8 text-primary" />
           </div>
           <div className="text-center py-2 my-2">
-            <h3 className="text-lg font-semibold">Drag & Drop your 3D model here</h3>
+            <h3 className="text-lg font-semibold">
+              Drag & Drop your 3D model here
+            </h3>
             <p className="text-sm text-muted-foreground mt-1">
               or click to select files
             </p>
@@ -75,7 +77,7 @@ export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
           </Button>
         </div>
       </div>
-      
+
       {uploadProgress > 0 && uploadProgress < 100 && (
         <div className="mt-4">
           <Progress value={uploadProgress} className="h-2" />

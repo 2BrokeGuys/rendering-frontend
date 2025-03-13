@@ -24,6 +24,7 @@ export const POST = async (request: NextRequest) => {
 
     NextResponse.json({ url }, { status: 200 });
   } catch (error) {
+    console.log(error);
     NextResponse.json(
       { error: "Error fetching Presigned URL" },
       { status: 500 }
@@ -54,6 +55,7 @@ export const GET = async (request: NextRequest) => {
 
     NextResponse.json({ length: data.length, files: data }, { status: 200 });
   } catch (error) {
+    console.log(error);
     NextResponse.json(
       { error: "Error fetching your rendered output files" },
       { status: 500 }
