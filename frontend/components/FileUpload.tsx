@@ -14,12 +14,12 @@ export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
-    if (file && file.name.endsWith(".fbx")) {
+    if (file && (file.name.endsWith(".fbx") || file.name.endsWith(".blend"))) {
       simulateUpload(file);
     } else {
       toast({
         title: "Invalid file",
-        description: "Please upload a .fbx file",
+        description: "Please upload a .fbx or .blend file",
         variant: "destructive",
       });
     }
@@ -44,7 +44,7 @@ export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      "application/octet-stream": [".fbx"],
+      "application/octet-stream": [".fbx", ".blend"],
     },
     multiple: false,
   });

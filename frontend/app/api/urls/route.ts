@@ -1,7 +1,12 @@
 import { pool } from "@/lib/db";
-import { minioClient } from "@/lib/minio";
+import { rawFilesMinioClient } from "@/lib/minio";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
+
+const minioBucketName = process.env.RAW_MINIO_BUCKET_NAME as string;
+const minioBucketPresignedURLExpiry = Number(
+  process.env.RAW_MINIO_PRESIGNED_URL_EXPIRY as string
+);
 
 export const POST = async (request: NextRequest) => {
   const session = await getToken({ req: request });
@@ -15,17 +20,17 @@ export const POST = async (request: NextRequest) => {
   const objectKey = `${userId}/${file_name}`;
 
   try {
-    const url = await minioClient.presignedUrl(
+    const url = await rawFilesMinioClient.presignedUrl(
       "GET",
-      process.env.MINIO_BUCKET_NAME as string,
+      minioBucketName,
       objectKey,
-      Number(process.env.MINIO_PRESIGNED_URL_EXPIRY as string)
+      minioBucketPresignedURLExpiry
     );
 
-    NextResponse.json({ url }, { status: 200 });
+    return NextResponse.json({ url }, { status: 200 });
   } catch (error) {
     console.log(error);
-    NextResponse.json(
+    return NextResponse.json(
       { error: "Error fetching Presigned URL" },
       { status: 500 }
     );
