@@ -20,8 +20,7 @@ export const POST = async (request: NextRequest) => {
   const objectKey = `${userId}/${file_name}`;
 
   try {
-    const url = await rawFilesMinioClient.presignedUrl(
-      "GET",
+    const url = await rawFilesMinioClient.presignedPutObject(
       minioBucketName,
       objectKey,
       minioBucketPresignedURLExpiry

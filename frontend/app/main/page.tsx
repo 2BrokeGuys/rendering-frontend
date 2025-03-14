@@ -11,7 +11,6 @@ export default function Main() {
   const [selectedFile, setSelectedfile] = useState<File | null>(null);
   const [isRendering, setIsRendering] = useState(false);
   const [renderComplete, setRenderComplete] = useState(false);
-  const [currentPresignedURL, setCurrentPreSignedURL] = useState("");
 
   const retrievePresignedURL = async () => {
     const response = await fetch("/api/urls", {
@@ -24,8 +23,29 @@ export default function Main() {
     });
 
     const responseData = await response.json();
-    const url = responseData.url;
-    setCurrentPreSignedURL(url);
+    return responseData.url;
+  };
+
+  const uploadFileToMinio = async () => {
+    const url = await retrievePresignedURL();
+
+    try {
+      const response = await fetch(url, {
+        method: "PUT",
+        body: selectedFile,
+        headers: {
+          "Content-Type": "application/octet-stream",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Upload failed with status: ${response.status}`);
+      }
+
+      console.log("File uploaded successfully!");
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
   };
 
   const handleRender = () => {
@@ -64,16 +84,16 @@ export default function Main() {
           rendering engine.
         </p>
       </div>
-      <Button onClick={retrievePresignedURL}>Get URL</Button>
+      <Button onClick={uploadFileToMinio}>Upload File</Button>
 
       {!selectedFile && <FileUpload onFileSelect={setSelectedfile} />}
 
       {selectedFile && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
-            <div className="preview-container">
+            {/* <div className="preview-container">
               <ModelPreview file={selectedFile} />
-            </div>
+            </div> */}
 
             {renderComplete && (
               <div className="flex justify-center">
