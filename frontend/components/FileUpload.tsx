@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { Upload, File } from "lucide-react";
+import { Upload } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 
 interface FileUploadProps {
@@ -11,10 +10,16 @@ interface FileUploadProps {
 
 export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
-    if (file && (file.name.endsWith(".fbx") || file.name.endsWith(".blend"))) {
+    if (
+      file &&
+      (file.name.endsWith(".fbx") ||
+        file.name.endsWith(".blend") ||
+        file.name.endsWith(".zip"))
+    ) {
       simulateUpload(file);
     } else {
       toast({
@@ -44,16 +49,20 @@ export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      "application/octet-stream": [".fbx", ".blend"],
+      "application/octet-stream": [".fbx", ".blend", ".zip"],
     },
     multiple: false,
   });
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-2xl mx-auto hover:cursor-pointer">
       <div
         {...getRootProps()}
-        className={`dropzone ${isDragActive ? "active" : ""} group`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className={`dropzone ${
+          isDragActive || isHovered ? "active" : ""
+        } group`}
       >
         <input {...getInputProps()} className="gap-2" />
         <div className="flex flex-col items-center gap-4 ">
@@ -65,16 +74,9 @@ export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
               Drag & Drop your 3D model here
             </h3>
             <p className="text-sm text-muted-foreground mt-1">
-              or click to select files
-            </p>
-            <p className="text-xs text-muted-foreground mt-2">
-              Supports .fbx files up to 100MB
+              or click here to select files
             </p>
           </div>
-          <Button variant="outline" className="mt-4 rounded-xl">
-            <File className="w-4 h-4 mr-2" />
-            Select File
-          </Button>
         </div>
       </div>
 

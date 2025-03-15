@@ -1,7 +1,10 @@
-import Image from "next/image"
-import Link from "next/link"
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
 
 const HeroSection = () => {
+  const { status } = useSession();
+
   return (
     <div className="relative h-screen flex items-center justify-center">
       <Image
@@ -14,17 +17,20 @@ const HeroSection = () => {
       />
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">Welcome to RenderBro</h1>
-        <p className="text-lg sm:text-xl md:text-2xl mb-8">Experience lightning-fast rendering for your projects</p>
-        <Link href={"/main"}>
-        <button className="bg-lime hover:bg-darklime hover:text-black text-black font-bold py-2 px-4 rounded-full transition duration-300 text-sm sm:text-base">
-          Get Started
-        </button>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
+          Welcome to RenderBro
+        </h1>
+        <p className="text-lg sm:text-xl md:text-2xl mb-8">
+          Experience lightning-fast rendering for your projects
+        </p>
+        <Link href={status === "authenticated" ? "/main" : "/login"}>
+          <button className="bg-lime hover:bg-darklime hover:text-black text-black font-bold py-2 px-4 rounded-full transition duration-300 text-sm sm:text-base">
+            Get Started
+          </button>
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HeroSection
-
+export default HeroSection;
