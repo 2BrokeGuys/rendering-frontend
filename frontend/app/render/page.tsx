@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { FileUpload } from "@/components/FileUpload";
 import { RenderSettings } from "@/components/RenderSetting";
-import { ModelPreview } from "@/components/ModelPreview";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { toast } from "@/hooks/use-toast";

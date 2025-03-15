@@ -12,39 +12,45 @@ export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const file = acceptedFiles[0];
-    if (
-      file &&
-      (file.name.endsWith(".fbx") ||
-        file.name.endsWith(".blend") ||
-        file.name.endsWith(".zip"))
-    ) {
-      simulateUpload(file);
-    } else {
-      toast({
-        title: "Invalid file",
-        description: "Please upload a .fbx or .blend file",
-        variant: "destructive",
-      });
-    }
-  }, []);
+  const simulateUpload = useCallback(
+    (file: File) => {
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 5;
+        setUploadProgress(progress);
+        if (progress >= 100) {
+          clearInterval(interval);
+          onFileSelect(file);
+          toast({
+            title: "Upload complete",
+            description: "Your file has been uploaded successfully",
+          });
+        }
+      }, 100);
+    },
+    [onFileSelect],
+  );
 
-  const simulateUpload = (file: File) => {
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += 5;
-      setUploadProgress(progress);
-      if (progress >= 100) {
-        clearInterval(interval);
-        onFileSelect(file);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const file = acceptedFiles[0];
+      if (
+        file &&
+        (file.name.endsWith(".fbx") ||
+          file.name.endsWith(".blend") ||
+          file.name.endsWith(".zip"))
+      ) {
+        simulateUpload(file);
+      } else {
         toast({
-          title: "Upload complete",
-          description: "Your file has been uploaded successfully",
+          title: "Invalid file",
+          description: "Please upload a .fbx or .blend file",
+          variant: "destructive",
         });
       }
-    }, 100);
-  };
+    },
+    [simulateUpload],
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,

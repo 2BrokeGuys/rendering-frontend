@@ -5,6 +5,7 @@
 import LoginButton from "@/components/LoginButton";
 import LogoutButton from "@/components/LogoutButton";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 const Page = () => {
   const { data: session } = useSession();
@@ -15,10 +16,12 @@ const Page = () => {
         <>
           <h1 className="text-2xl">Welcome, {session.user?.name}!</h1>
           <p>Email: {session.user?.email}</p>
-          <img
+          <Image
             src={session.user?.image as string}
             alt="User Avatar"
-            className="w-16 h-16 rounded-full mt-2"
+            width="64"
+            height="64"
+            className="rounded-full mt-2"
           />
           <LogoutButton />
         </>
