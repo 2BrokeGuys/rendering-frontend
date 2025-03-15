@@ -1,59 +1,17 @@
 "use client";
 
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Upload } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { useDropzone } from "react-dropzone";
-import { Button } from "@/components/ui/button";
 
 export default function Main() {
   const [selectedFile, setSelectedfile] = useState<File | null>(null);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleSelectFile = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      onDrop([file]);
-    }
-  };
-
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const file = acceptedFiles[0];
-    if (
-      file &&
-      (file.name.endsWith(".fbx") ||
-        file.name.endsWith(".blend") ||
-        file.name.endsWith(".zip"))
-    ) {
-      setSelectedfile(file);
-    } else {
-      toast.error("Invalid file", {
-        description: "Please upload a .fbx or .blend file",
-      });
-    }
-  }, []);
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      "application/octet-stream": [".fbx", ".blend", ".zip"],
-    },
-    multiple: false,
-  });
-
-  const retrievePresignedURL = async () => {
-    if (!selectedFile) {
-      toast.error("Please select a file");
-      return { url: null, error: true };
-    }
-
+  const retrievePresignedURL = async (file: File) => {
     try {
       const response = await fetch("/api/urls", {
         method: "POST",
@@ -61,7 +19,7 @@ export default function Main() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ file_name: selectedFile.name }),
+        body: JSON.stringify({ file_name: file.name }),
       });
 
       const responseData = await response.json();
@@ -71,11 +29,11 @@ export default function Main() {
     }
   };
 
-  const uploadFileToMinio = async () => {
-    const { url, error } = await retrievePresignedURL();
+  const uploadFileToMinio = useCallback(async (file: File) => {
+    const { url, error } = await retrievePresignedURL(file);
 
     if (error || !url) {
-      console.log(error);
+      toast.error("Failed to get upload URL");
       return;
     }
 
@@ -87,7 +45,6 @@ export default function Main() {
           const percentComplete = Math.round(
             (event.loaded / event.total) * 100,
           );
-          console.log("Upload Progress: ", percentComplete);
           setUploadProgress(percentComplete);
         }
       };
@@ -97,23 +54,50 @@ export default function Main() {
           toast.success("File uploaded successfully!");
           setUploadProgress(100);
         } else {
-          throw new Error(`Upload failed with status: ${xhr.status}`);
+          toast.error("Upload failed");
         }
       };
 
       xhr.onerror = () => {
-        console.error("Error uploading file");
         toast.error("Error uploading file");
       };
 
       xhr.open("PUT", url);
       xhr.setRequestHeader("Content-Type", "application/octet-stream");
-      xhr.send(selectedFile);
+      xhr.send(file);
     } catch (error) {
-      console.error("Error uploading file:", error);
+      console.log(error);
       toast.error("Upload failed. Please try again.");
     }
-  };
+  }, []);
+
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const file = acceptedFiles[0];
+      if (
+        file &&
+        (file.name.endsWith(".fbx") ||
+          file.name.endsWith(".blend") ||
+          file.name.endsWith(".zip"))
+      ) {
+        setSelectedfile(file);
+        uploadFileToMinio(file);
+      } else {
+        toast.error("Invalid file", {
+          description: "Please upload a .fbx, .blend, or .zip file",
+        });
+      }
+    },
+    [uploadFileToMinio],
+  );
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      "application/octet-stream": [".fbx", ".blend", ".zip"],
+    },
+    multiple: false,
+  });
 
   return (
     <div className="max-w-screen-xl flex gap-4 flex-col justify-center items-center h-screen min-w-full">
@@ -136,7 +120,7 @@ export default function Main() {
             } group`}
           >
             <input {...getInputProps()} className="gap-2" />
-            <div className="flex flex-col items-center gap-4 ">
+            <div className="flex flex-col items-center gap-4">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300 my-2">
                 <Upload className="w-8 h-8 text-primary" />
               </div>
@@ -145,36 +129,21 @@ export default function Main() {
                   Drag & Drop your 3D model here
                 </h3>
                 <p className="text-sm text-muted-foreground mt-1">
-                  or click here to select files
+                  or click here to select & upload files
                 </p>
               </div>
             </div>
           </div>
         </div>
       )}
-      {selectedFile && (
-        <div className="flex flex-row items-center gap-4">
-          <div>{selectedFile?.name}</div>
-          <div className="flex gap-2">
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              accept=".fbx,.blend,.zip"
-              className="hidden"
-            />
-            <Button onClick={handleSelectFile}>Select File</Button>
-            <Button onClick={uploadFileToMinio}>Upload</Button>
-          </div>
 
-          {uploadProgress > 0 && uploadProgress < 100 && (
-            <div className="mt-4">
-              <Progress value={uploadProgress} className="h-2" />
-              <p className="text-sm text-muted-foreground mt-2 text-center">
-                Uploading... {uploadProgress}%
-              </p>
-            </div>
-          )}
+      {uploadProgress > 0 && uploadProgress < 100 && (
+        <div className="w-1/4 mx-auto flex flex-col">
+          <div className="text-center mb-4">Uploading</div>
+          <Progress
+            value={uploadProgress}
+            className="h-2 bg-gray-300 [&>div]:bg-green-500"
+          />
         </div>
       )}
     </div>
