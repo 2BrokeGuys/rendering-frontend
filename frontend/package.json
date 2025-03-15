@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "format:check": "npx prettier . --check",
+    "format": "npx prettier . --write",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -41,6 +43,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",
+    "prettier": "3.5.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

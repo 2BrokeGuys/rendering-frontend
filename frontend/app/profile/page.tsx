@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 function page() {
   return (
     <div className="min-h-screen flex justify-center items-center">Profile</div>
-  )
+  );
 }
 
-export default page
+export default page;

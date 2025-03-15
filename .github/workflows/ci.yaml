@@ -38,6 +38,10 @@ jobs:
         run: npm run lint
         working-directory: frontend
 
+      - name: 💅 Check Code Formatting
+        run: npm run format:check
+        working-directory: frontend
+
       - name: 🏗️ Build Project
         run: npm run build
         working-directory: frontend

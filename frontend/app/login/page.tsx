@@ -6,7 +6,6 @@ import LoginButton from "@/components/LoginButton";
 import LogoutButton from "@/components/LogoutButton";
 import { useSession } from "next-auth/react";
 
-
 const Page = () => {
   const { data: session } = useSession();
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Select,
   SelectContent,
@@ -9,7 +9,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { Play } from 'lucide-react';
+import { Play } from "lucide-react";
 
 interface RenderSettingsProps {
   onRender: () => void;
@@ -71,7 +71,7 @@ export const RenderSettings = ({ onRender }: RenderSettingsProps) => {
         </div>
       </div>
 
-      <Button 
+      <Button
         className="w-full border-2 border-white rounded-md"
         onClick={onRender}
       >

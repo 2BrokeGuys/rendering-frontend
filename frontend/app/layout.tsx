@@ -7,7 +7,7 @@ import SessionProviderWrapper from "@/components/Providers";
 
 const TekturSans = Tektur({
   subsets: ["latin"],
-})
+});
 
 export const metadata: Metadata = {
   title: "RenderBro",
@@ -21,13 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${TekturSans} antialiased`}
-      >
+      <body className={`${TekturSans} antialiased`}>
         <SessionProviderWrapper>
-            <Header />
-              {children}
-            <Footer />
+          <Header />
+          {children}
+          <Footer />
         </SessionProviderWrapper>
       </body>
     </html>

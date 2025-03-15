@@ -28,7 +28,7 @@ export const ModelPreview = ({ file }: ModelPreviewProps) => {
       75,
       containerRef.current.clientWidth / containerRef.current.clientHeight,
       0.1,
-      1000
+      1000,
     );
     camera.position.z = 5;
     cameraRef.current = camera;
@@ -41,7 +41,7 @@ export const ModelPreview = ({ file }: ModelPreviewProps) => {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(
       containerRef.current.clientWidth,
-      containerRef.current.clientHeight
+      containerRef.current.clientHeight,
     );
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -112,7 +112,7 @@ export const ModelPreview = ({ file }: ModelPreviewProps) => {
 
     // Clear existing model
     const existingMeshes = sceneRef.current.children.filter(
-      (child) => child instanceof THREE.Mesh
+      (child) => child instanceof THREE.Mesh,
     );
     existingMeshes.forEach((mesh) => {
       if (mesh.geometry) mesh.geometry.dispose();
@@ -200,7 +200,7 @@ export const ModelPreview = ({ file }: ModelPreviewProps) => {
             "There was an error loading the 3D model. Please try a different file.",
           variant: "destructive",
         });
-      }
+      },
     );
 
     return () => URL.revokeObjectURL(objectURL);

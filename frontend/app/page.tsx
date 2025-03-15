@@ -90,7 +90,7 @@ const Page = () => {
               their creative process with RenderBro.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/main">
+              <Link href="/render">
                 <Button size="lg" className="gap-2">
                   Start Free Trial
                   <ArrowRight className="size-4" />
