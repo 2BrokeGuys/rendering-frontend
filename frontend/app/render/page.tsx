@@ -92,20 +92,21 @@ export default function Page() {
         if (xhr.status === 200) {
           toast.success("File uploaded successfully!");
           setProgress(100);
+          setStage("complete");
         } else {
           toast.error("Upload failed");
+          setStage("selected");
         }
       };
 
       xhr.onerror = () => {
         toast.error("Error uploading file");
+        setStage("selected");
       };
 
       xhr.open("PUT", uploadUrl);
       xhr.setRequestHeader("Content-Type", "application/octet-stream");
       xhr.send(file);
-
-      setStage("complete");
     } catch (error) {
       console.error("Upload failed:", error);
       toast.error("Upload failed. Please try again.");

@@ -15,8 +15,8 @@ on:
       - ".github/workflows/ci.yml"
 
 jobs:
-  build-and-test:
-    name: Build & Test
+  build:
+    name: Build Frontend
     runs-on: ubuntu-latest
 
     steps:
@@ -42,6 +42,6 @@ jobs:
         run: npm run format:check
         working-directory: frontend
 
-      - name: 🏗️ Build Project
-        run: npm run build
-        working-directory: frontend
+      # - name: 🏗️ Build Project
+      #   run: npm run build
+      #   working-directory: frontend

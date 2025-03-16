@@ -1,4 +1,3 @@
-import { pool } from "@/lib/db";
 import { rawFilesMinioClient } from "@/lib/minio";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
@@ -36,33 +35,33 @@ export const POST = async (request: NextRequest) => {
   }
 };
 
-export const GET = async (request: NextRequest) => {
-  const session = await getToken({ req: request });
+// export const GET = async (request: NextRequest) => {
+//   const session = await getToken({ req: request });
 
-  if (!session) {
-    return NextResponse.json({ message: "Not signed in" }, { status: 401 });
-  }
+//   if (!session) {
+//     return NextResponse.json({ message: "Not signed in" }, { status: 401 });
+//   }
 
-  const { sub: userId } = session;
+//   const { sub: userId } = session;
 
-  try {
-    const dbResponse = await pool.query(
-      "SELECT file_name, file_size, file_urls FROM user_files WHERE user_id = $1",
-      [userId],
-    );
+//   try {
+//     const dbResponse = await pool.query(
+//       "SELECT file_name, file_size, file_urls FROM user_files WHERE user_id = $1",
+//       [userId],
+//     );
 
-    const data = dbResponse.rows;
+//     const data = dbResponse.rows;
 
-    if (data.length === 0) {
-      return NextResponse.json({ message: "No files found!" }, { status: 404 });
-    }
+//     if (data.length === 0) {
+//       return NextResponse.json({ message: "No files found!" }, { status: 404 });
+//     }
 
-    NextResponse.json({ length: data.length, files: data }, { status: 200 });
-  } catch (error) {
-    console.log(error);
-    NextResponse.json(
-      { error: "Error fetching your rendered output files" },
-      { status: 500 },
-    );
-  }
-};
+//     NextResponse.json({ length: data.length, files: data }, { status: 200 });
+//   } catch (error) {
+//     console.log(error);
+//     NextResponse.json(
+//       { error: "Error fetching your rendered output files" },
+//       { status: 500 },
+//     );
+//   }
+// };
