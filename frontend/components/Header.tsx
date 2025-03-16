@@ -1,8 +1,13 @@
 "use client";
 
+import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
+import { Button } from "./ui/button";
 
 const Navbar = () => {
+  const { data: session } = useSession();
+
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -30,21 +35,42 @@ const Navbar = () => {
           >
             Dashboard
           </Link>
-          <Link
-            href="#resources"
-            className="text-sm font-medium  hover:translate-y-1/4"
-          >
-            Resources
-          </Link>
         </nav>
 
-        <div className="hidden md:flex">
-          <Link
-            href={"/login"}
-            className="border rounded-md  min-w-fit px-2 py-2 items-center flex font-semibold"
-          >
-            Log in
-          </Link>
+        <div className="hidden md:flex items-center gap-4">
+          {session ? (
+            <div className="flex items-center gap-4">
+              {session.user?.image && (
+                <Image
+                  src={session.user.image}
+                  alt={session.user.name || "User Avatar"}
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
+              )}
+
+              <Link href="/profile">
+                <span className="text-sm font-medium">
+                  {session.user?.name || "User"}
+                </span>
+              </Link>
+
+              <button
+                onClick={() => signOut()}
+                className="border rounded-md px-2 py-2 font-semibold"
+              >
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <Button
+              onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+              className="border rounded-md px-2 py-2 font-semibold"
+            >
+              Log in
+            </Button>
+          )}
         </div>
       </div>
     </header>

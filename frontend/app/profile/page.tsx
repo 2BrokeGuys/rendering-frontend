@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "RenderBro / Profile",
+  title: "Your Profile | RenderBro",
   description: "Your Profile on RenderBro",
 };
 

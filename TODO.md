@@ -11,15 +11,12 @@
   - [ ] API Integration
 - [ ] Backend
   - [ ] Profile Management
-    - [ ] Update Profile
     - [ ] Delete Profile
-  - [ ] Setup Docker Compose
-  - [ ] MinIO Integration
-  - [x] OAuth2 Integration
+  - [ ] S3 Integration
   - [ ] Database Schema Design
   - [ ] Rate Limiting
   - [ ] GPU Worker
-  - [ ] Output Manager
+  - [ ] Output Manager (Next.js APIs)
   - [ ] RabbitMQ (Job Queue)
   - [ ] Platform Database (PostgreSQL)
     - [ ] Design Schemas
