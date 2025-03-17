@@ -13,13 +13,12 @@
   - [ ] Profile Management
     - [ ] Delete Profile
   - [ ] S3 Integration
-  - [ ] Database Schema Design
   - [ ] Rate Limiting
   - [ ] GPU Worker
   - [ ] Output Manager (Next.js APIs)
   - [ ] RabbitMQ (Job Queue)
-  - [ ] Platform Database (PostgreSQL)
-    - [ ] Design Schemas
+  - [x] Platform Database (PostgreSQL)
+    - [x] Design Schemas
     - [ ] Integration w/ Frontend
   - [ ] Object Storage Service (Minio)
     - [ ] Interaction Code
