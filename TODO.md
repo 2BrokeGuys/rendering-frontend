@@ -1,13 +1,24 @@
 # TODO
 
+- [ ] Build APIs
+- [ ] Stripe Integration (or any other Payment Gateway)
+- [ ] Send Emails
+  - [ ] Credits Bought
+  - [ ] Job Successful
+  - [ ] Job failed
+  - [ ] Profile Created
+  - [ ] Profile Deleted
+- [ ] Test the System
+
 - [ ] Frontend
   - [ ] Pages
     - [ ] Landing Page
     - [ ] Dashboard Page
     - [ ] Profile Page
     - [ ] Rendering Page
-    - [ ] Pricing
-    - [ ] Buy Credits Page
+    - [ ] Pricing (Buy Credits) Page
+    - [ ] About (How it works) Page
+    - [ ] Payment Success Page
   - [ ] API Integration
 - [ ] Backend
   - [ ] Profile Management
@@ -18,7 +29,6 @@
   - [ ] Output Manager (Next.js APIs)
   - [ ] RabbitMQ (Job Queue)
   - [x] Platform Database (PostgreSQL)
-    - [x] Design Schemas
     - [ ] Integration w/ Frontend
   - [ ] Object Storage Service (Minio)
     - [ ] Interaction Code
