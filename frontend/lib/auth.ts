@@ -12,8 +12,11 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async signIn({ user }) {
-      await saveUserToDB(user);
-      return true;
+      const { error } = await saveUserToDB(user);
+
+      if (!error) return true;
+
+      return false;
     },
     /* eslint-disable */
     async session({ session, token }: { session: any; token: JWT }) {
