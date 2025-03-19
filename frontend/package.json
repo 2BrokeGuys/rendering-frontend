@@ -9,7 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "cd .. && husky frontend/.husky"
+    "prepare": "cd .. && husky frontend/.husky",
+    "stripe:listen": "stripe listen --forward-to localhost:3000/api/webhook"
   },
   "dependencies": {
     "@auth/core": "^0.34.2",
@@ -33,6 +34,7 @@
     "react-dom": "^19.0.0",
     "react-dropzone": "^14.3.5",
     "sonner": "^2.0.1",
+    "stripe": "^17.7.0",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.173.0"
