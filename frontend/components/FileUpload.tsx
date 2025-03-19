@@ -50,7 +50,7 @@ export const FileUpload = ({ onFileSelect }: FileUploadProps) => {
   });
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-screen-lg mx-auto py-4">
       <div
         {...getRootProps()}
         className={`dropzone ${isDragActive ? 'active' : ''} group`}

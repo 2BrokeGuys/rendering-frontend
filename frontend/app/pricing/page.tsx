@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Badge, CheckCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import { useState } from "react";
 
 export default function Pricing() {
@@ -80,11 +80,10 @@ export default function Pricing() {
 ].map((plan, i) => (
     <div
     key={i}
-    className={`relative rounded-lg border ${plan.popular ? "border-primary shadow-lg" : ""} bg-background`}
+    className={`relative rounded-xl border ${plan.popular ? "border-primary shadow-lg" : ""} bg-background `}
     >
           {plan.popular && (
               <div className="absolute top-0 right-0 transform translate-x-2 -translate-y-2">
-              <Badge className="px-3 py-1 bg-primary text-primary-foreground">Most Popular</Badge>
             </div>
           )}
           <div className="p-6 space-y-6">
@@ -104,7 +103,7 @@ export default function Pricing() {
                 </li>
               ))}
             </ul>
-            <Button className="w-full" variant={plan.popular ? "default" : "outline"}>
+            <Button className="w-full border-lime" variant={plan.popular ? "default" : "outline"}>
               {plan.cta}
             </Button>
           </div>
@@ -120,7 +119,7 @@ export default function Pricing() {
             Contact our sales team for volume discounts and custom requirements.
           </p>
         </div>
-        <Button size="lg" variant="outline" className="min-w-[200px]">
+        <Button size="lg" variant="outline" className="min-w-[200px]  border-lime">
           Contact Sales
         </Button>
       </div>

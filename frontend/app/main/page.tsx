@@ -36,7 +36,7 @@ export default function Main() {
   return (
     <div className='max-w-screen-xl flex flex-col justify-center items-center h-screen min-w-full'>
 
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-4 flex flex-col min-w-fit max-w-screen-lg">
           <h1 className="text-4xl font-bold tracking-tight">3D Model Renderer</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Upload your 3D models and create stunning renders with our advanced rendering engine.
@@ -49,7 +49,7 @@ export default function Main() {
 
         {selectedFile && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-6 max-w-screen-xl min-w-full">
               <div className="preview-container">
                 <ModelPreview file={selectedFile} />
               </div>

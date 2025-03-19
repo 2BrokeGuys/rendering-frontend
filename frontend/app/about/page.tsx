@@ -55,7 +55,7 @@ function page() {
               </div>
 
               <div className="mt-16 text-center">
-                <Link href="/main" className='flex justify-center items-center gap-2 border border-slate-300 rounded-xl p-4'>
+                <Link href="/main" className='flex justify-center items-center gap-2 border border-lime rounded-xl p-4'>
                   Try It Now
                   <ArrowRight className="size-5" />
                 </Link>

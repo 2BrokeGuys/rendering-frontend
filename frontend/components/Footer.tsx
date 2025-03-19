@@ -3,7 +3,7 @@ import { Globe } from "lucide-react"
 
 const Footer = () => {
   return (
-    <footer className="border-t py-12 md:py-16">
+    <footer className="border-t py-12 md:py-10">
           <div className="container">
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
               <div className="col-span-2">

@@ -64,9 +64,9 @@ const Page = () => {
             </div>
 
             <div className="container flex justify-center items-center max-w-screen-xl min-w-full my-8">
-              <div className="rounded-xl border border-slate-300 bg-gradient-to-r from-primary/20 via-primary/10 to-background p-8 md:p-12 lg:p-16 relative overflow-hidden">
+              <div className="rounded-xl border bg-gradient-to-r from-primary/20 via-primary/10 to-background p-8 md:p-12 lg:p-16 relative overflow-hidden">
                 <div className="absolute top-0 right-0 -mt-16 -mr-16 size-64 rounded-full bg-primary/10 blur-3xl" />
-                <div className="relative z-10 max-w-screen-lg">
+                <div className="relative z-10 max-w-screen-xl">
                   <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to transform your rendering workflow?</h2>
                   <p className="text-xl text-muted-foreground mb-8">
                     Join thousands of artists and studios who have already accelerated their creative process with
