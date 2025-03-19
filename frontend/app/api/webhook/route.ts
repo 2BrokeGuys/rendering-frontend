@@ -26,7 +26,7 @@ async function getRawBody(readable: ReadableStream): Promise<Buffer> {
 
 export const POST = async (request: NextRequest) => {
   try {
-    const sig: any = request.headers.get("stripe-signature");
+    const sig = request.headers.get("stripe-signature");
 
     if (!sig) {
       return new NextResponse("Missing Stripe signature", { status: 400 });

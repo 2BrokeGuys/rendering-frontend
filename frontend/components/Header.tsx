@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
@@ -64,12 +64,11 @@ const Navbar = () => {
               </button>
             </div>
           ) : (
-            <Button
-              onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-              className="border rounded-md px-2 py-2 font-semibold"
-            >
-              Log in
-            </Button>
+            <Link href="/login">
+              <Button className="border rounded-md px-2 py-2 font-semibold">
+                Log in
+              </Button>
+            </Link>
           )}
         </div>
       </div>

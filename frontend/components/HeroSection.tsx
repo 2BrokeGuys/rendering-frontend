@@ -1,7 +1,6 @@
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "./ui/button";
 
 const HeroSection = () => {
   const { status } = useSession();
@@ -24,21 +23,12 @@ const HeroSection = () => {
         <p className="text-lg sm:text-xl md:text-2xl mb-8">
           Experience lightning-fast rendering for your projects
         </p>
-        {status === "authenticated" ? (
-          <Link
-            href="/render"
-            className="bg-lime hover:bg-darklime hover:text-black text-black font-bold py-2 px-4 rounded-full transition duration-300 text-sm sm:text-base"
-          >
-            Get Started
-          </Link>
-        ) : (
-          <Button
-            onClick={() => signIn("google")}
-            className="bg-lime hover:bg-darklime hover:text-black text-black font-bold py-2 px-4 rounded-full transition duration-300 text-sm sm:text-base"
-          >
-            Get Started
-          </Button>
-        )}
+        <Link
+          href={status === "authenticated" ? "/render" : "/login"}
+          className="bg-lime hover:bg-darklime hover:text-black text-black font-bold py-2 px-4 rounded-full transition duration-300 text-sm sm:text-base"
+        >
+          Get Started
+        </Link>
       </div>
     </div>
   );

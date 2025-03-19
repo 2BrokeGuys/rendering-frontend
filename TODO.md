@@ -16,9 +16,8 @@
     - [ ] Dashboard Page
     - [ ] Profile Page
     - [ ] Rendering Page
-    - [ ] Pricing (Buy Credits) Page
+    - [x] Pricing (Buy Credits) Page
     - [ ] About (How it works) Page
-    - [ ] Payment Success Page
     - [ ] Login Page (See [t3.chat](https://t3.chat))
   - [ ] API Integration
 - [ ] Backend
