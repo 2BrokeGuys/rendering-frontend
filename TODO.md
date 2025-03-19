@@ -1,7 +1,6 @@
 # TODO
 
 - [ ] Build APIs
-- [ ] Stripe Integration (or any other Payment Gateway)
 - [ ] Send Emails
   - [ ] Credits Bought
   - [ ] Job Successful
@@ -16,9 +15,7 @@
     - [ ] Dashboard Page
     - [ ] Profile Page
     - [ ] Rendering Page
-    - [x] Pricing (Buy Credits) Page
     - [ ] About (How it works) Page
-    - [ ] Login Page (See [t3.chat](https://t3.chat))
   - [ ] API Integration
 - [ ] Backend
   - [ ] Profile Management

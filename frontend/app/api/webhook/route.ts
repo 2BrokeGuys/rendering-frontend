@@ -51,11 +51,15 @@ export const POST = async (request: NextRequest) => {
       const { userId, productId } = event.data.object
         .metadata as Stripe.Metadata;
 
+      const stripe_payment_id = event.data.object.id;
+      const amount = (event.data.object.amount_total as number) / 100;
+
       const { credits } = creditPlans.find(
         (plan) => plan.productId === productId,
       )!;
 
       await sql`UPDATE users SET credits = credits + ${credits} WHERE user_id = ${userId};`;
+      await sql`INSERT INTO transactions (user_id, stripe_payment_id, amount, status, created_at, payment_method) VALUES (${userId}, ${stripe_payment_id}, ${amount}, 'Success', NOW(), 'card');`;
     }
 
     return new NextResponse(null, { status: 200 });

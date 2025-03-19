@@ -1,10 +1,21 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 export default function Page() {
+  const { status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
       <div className="flex flex-col items-center text-center max-w-md space-y-6">
