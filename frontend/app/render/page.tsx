@@ -25,7 +25,7 @@ export default function Page() {
   const [jobType, setJobType] = useState<string>("image");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const allowedFileTypes = [".fbx", ".blend", ".zip"];
+  const allowedFileTypes = [".fbx", ".blend"];
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -47,11 +47,16 @@ export default function Page() {
   };
 
   const getUploadUrl = async () => {
+    if (!file) {
+      toast.error("No file selected!");
+      return;
+    }
+
     try {
       const response = await fetch("/api/urls", {
         method: "POST",
         credentials: "include",
-        body: JSON.stringify({ file_name: file?.name }),
+        body: JSON.stringify({ file_name: file.name }),
       });
 
       const data = await response.json();
@@ -60,6 +65,19 @@ export default function Page() {
       console.log(error);
       toast.error("Failed to fetch Presigned URL");
       return null;
+    }
+  };
+
+  const storeFileMetadataInDB = async () => {
+    const response = await fetch("/api/files/raw", {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({ file_name: file?.name }),
+    });
+
+    if (!response.ok) {
+      toast.error("Could not store file metadata to DB");
+      return;
     }
   };
 
@@ -88,11 +106,12 @@ export default function Page() {
         }
       };
 
-      xhr.onload = () => {
+      xhr.onload = async () => {
         if (xhr.status === 200) {
-          toast.success("File uploaded successfully!");
+          await storeFileMetadataInDB();
           setProgress(100);
           setStage("complete");
+          toast.success("File uploaded successfully!");
         } else {
           toast.error("Upload failed");
           setStage("selected");
@@ -146,7 +165,7 @@ export default function Page() {
             3D Model Uploader
           </h1>
           <p className="text-muted-foreground">
-            Upload your 3D models (.fbx, .blend, .zip) for rendering
+            Upload your 3D models (.fbx, .blend) for rendering
           </p>
         </div>
         <div className="space-y-6">
@@ -196,7 +215,7 @@ export default function Page() {
                             Drag & drop your file here
                           </p>
                           <p className="text-sm text-muted-foreground">
-                            or click to browse (.fbx, .blend, .zip)
+                            or click to browse (.fbx, .blend)
                           </p>
                         </div>
                       </>
