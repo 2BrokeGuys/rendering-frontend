@@ -1,6 +1,8 @@
 # TODO
 
 - [ ] Build APIs
+  - [ ] Submit Job
+  - [ ] Update Output File Metadata to DB
 - [ ] Send Emails
   - [ ] Credits Bought
   - [ ] Job Successful
@@ -10,24 +12,15 @@
 - [ ] Test the System
 
 - [ ] Frontend
+  - [ ] Redesign
   - [ ] Pages
-    - [ ] Landing Page
     - [ ] Dashboard Page
     - [ ] Profile Page
     - [ ] Rendering Page
     - [ ] About (How it works) Page
   - [ ] API Integration
 - [ ] Backend
-  - [ ] Profile Management
-    - [ ] Delete Profile
   - [ ] S3 Integration
   - [ ] Rate Limiting
   - [ ] GPU Worker
-  - [ ] Output Manager (Next.js APIs)
-  - [ ] RabbitMQ (Job Queue)
-  - [x] Platform Database (PostgreSQL)
-    - [ ] Integration w/ Frontend
-  - [ ] Object Storage Service (Minio)
-    - [ ] Interaction Code
-      - [ ] Raw file Storage
-      - [ ] Rendered Outputs Storage
+  - [ ] AWS SQS (Job Queue)
