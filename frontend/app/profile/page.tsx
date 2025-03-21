@@ -5,6 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Session } from "next-auth";
+import Image from "next/image";
 
 interface ExtendedUser {
   id?: string;
@@ -219,10 +220,12 @@ export default function Page() {
             <div className="p-6 rounded-lg border shadow-sm">
               <div className="flex items-center space-x-4 mb-6">
                 {session?.user?.image && (
-                  <img
+                  <Image
                     src={session.user.image}
                     alt="Profile"
                     className="h-16 w-16 rounded-full"
+                    width={64}
+                    height={64}
                   />
                 )}
                 <div>

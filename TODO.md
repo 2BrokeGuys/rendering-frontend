@@ -11,10 +11,8 @@
 - [ ] Test the System
 
 - [ ] Frontend
+  - [ ] Refactor
   - [ ] Redesign
-  - [ ] Pages
-    - [ ] Dashboard Page
-  - [ ] API Integration
 - [ ] Backend
-  - [ ] Rate Limiting
+  - [ ] Rate Limiting (Paid Plans?)
   - [ ] GPU Worker
