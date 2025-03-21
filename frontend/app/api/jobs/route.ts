@@ -1,3 +1,4 @@
+import { getUserCredits } from "@/app/actions";
 import { s3, sqs } from "@/lib/aws";
 import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { SendMessageCommand } from "@aws-sdk/client-sqs";
@@ -117,6 +118,12 @@ export const POST = async (request: NextRequest) => {
 
   if (!userId) {
     return NextResponse.json({ error: "User ID missing" }, { status: 401 });
+  }
+
+  const userCredits = await getUserCredits(userId);
+
+  if (userCredits < 1) {
+    return NextResponse.json({ error: "Not enough credits" }, { status: 401 });
   }
 
   const {
