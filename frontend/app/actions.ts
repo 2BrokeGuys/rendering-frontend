@@ -16,3 +16,13 @@ export async function saveUserToDB(user: any) {
     return { error: true };
   }
 }
+
+export async function getUserCredits(userId: string) {
+  try {
+    const data = await sql`SELECT credits FROM users WHERE user_id = ${userId}`;
+
+    return data[0].credits;
+  } catch (error) {
+    console.error("Error fetching user's credits: ", error);
+  }
+}
