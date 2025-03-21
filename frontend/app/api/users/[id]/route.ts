@@ -1,12 +1,16 @@
 import { sql } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export const POST = async (request: NextRequest) => {
-  const { email } = await request.json();
+export const GET = async (_request: NextRequest, { params }) => {
+  const { id } = await params;
+
+  if (!id) {
+    return NextResponse.json({ error: "User ID missing" }, { status: 401 });
+  }
 
   try {
     const result = await sql`
-    SELECT name, email, credits FROM users WHERE email = ${email};
+    SELECT name, email, credits FROM users WHERE user_id = ${id};
     `;
 
     if (!result.length) {
