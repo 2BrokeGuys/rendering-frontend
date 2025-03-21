@@ -1,5 +1,3 @@
-// THIS IS A TEST PAGE FOR AUTH
-
 "use client";
 
 import { useSession } from "next-auth/react";

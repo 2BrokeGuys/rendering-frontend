@@ -17,9 +17,9 @@ export async function saveUserToDB(user: any) {
   }
 }
 
-export async function getUserCredits(userId: string) {
+export async function getUserCredits(email: string) {
   try {
-    const data = await sql`SELECT credits FROM users WHERE user_id = ${userId}`;
+    const data = await sql`SELECT credits FROM users WHERE email = ${email}`;
 
     return data[0].credits;
   } catch (error) {
