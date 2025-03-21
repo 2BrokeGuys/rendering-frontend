@@ -5,7 +5,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-type JobTypes = "image" | "anim";
+type JobTypes = "image" | "animation";
 
 type JobDetailsDataType = {
   fileName: string;
@@ -86,7 +86,7 @@ const createTasks = (
 
   const animationTasks: TaskRenderAnimation[] = [];
 
-  const incrementDelta = framesTotal <= 10 ? 1 : 5;
+  const incrementDelta = framesTotal <= 10 ? 1 : 10;
 
   for (let i = frameStart; i <= frameEnd; i += incrementDelta) {
     const endFrame = Math.min(i + incrementDelta - 1, frameEnd);
@@ -110,7 +110,7 @@ export const POST = async (request: NextRequest) => {
   const session = await getToken({ req: request });
 
   if (!session) {
-    return NextResponse.json({ message: "Not signed in" }, { status: 403 });
+    return NextResponse.json({ error: "Not signed in" }, { status: 403 });
   }
 
   const { sub: userId } = session;
@@ -132,7 +132,7 @@ export const POST = async (request: NextRequest) => {
 
   const isValidPayload =
     typeof fileName === "string" &&
-    (jobType === "image" || jobType === "anim") &&
+    (jobType === "image" || jobType === "animation") &&
     Number.isInteger(renderResolutionHeight) &&
     Number.isInteger(renderResolutionWidth) &&
     Number.isInteger(renderResolutionPercentage) &&
@@ -173,6 +173,7 @@ export const POST = async (request: NextRequest) => {
       tasks.map((task) => {
         const sendCommand = new SendMessageCommand({
           QueueUrl: queueUrl,
+          MessageGroupId: userId,
           MessageBody: JSON.stringify(task),
         });
         return sqs.send(sendCommand);
