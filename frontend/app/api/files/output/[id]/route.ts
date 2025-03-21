@@ -10,7 +10,7 @@ export const GET = async (_request: NextRequest, { params }) => {
 
   try {
     const result =
-      await sql`SELECT file_name, job_id, FROM files WHERE user_id = ${id} AND file_type = 'output'`;
+      await sql`SELECT file_name, job_id FROM files WHERE user_id = ${id} AND file_type = 'output'`;
 
     return NextResponse.json(
       { length: result.length, data: result },

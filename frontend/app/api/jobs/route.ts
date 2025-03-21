@@ -114,13 +114,13 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({ error: "Not signed in" }, { status: 403 });
   }
 
-  const { sub: userId } = session;
+  const { sub: userId, email } = session;
 
   if (!userId) {
     return NextResponse.json({ error: "User ID missing" }, { status: 401 });
   }
 
-  const userCredits = await getUserCredits(userId);
+  const userCredits = await getUserCredits(email as string);
 
   if (userCredits < 1) {
     return NextResponse.json({ error: "Not enough credits" }, { status: 401 });

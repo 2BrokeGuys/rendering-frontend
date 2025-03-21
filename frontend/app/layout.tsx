@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Tektur } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SessionProviderWrapper from "@/components/Providers";
 import { Toaster } from "@/components/ui/sonner";
+import HeaderWrapper from "@/components/HeaderWrapper";
 
 const TekturSans = Tektur({
   subsets: ["latin"],
@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${TekturSans} antialiased`}>
         <SessionProviderWrapper>
-          <Header />
+          <HeaderWrapper />
           {children}
           <Footer />
         </SessionProviderWrapper>

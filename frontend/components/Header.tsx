@@ -5,7 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
-const Navbar = () => {
+interface NavbarProps {
+  credits: number;
+}
+
+const Navbar = ({ credits }: NavbarProps) => {
   const { data: session } = useSession();
 
   return (
@@ -40,6 +44,8 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-4">
           {session ? (
             <div className="flex items-center gap-4">
+              <div>{credits} CC</div>
+
               {session.user?.image && (
                 <Image
                   src={session.user.image}

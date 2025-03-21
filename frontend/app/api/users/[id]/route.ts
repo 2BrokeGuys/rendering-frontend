@@ -5,7 +5,7 @@ export const GET = async (_request: NextRequest, { params }) => {
   const { id } = await params;
 
   if (!id) {
-    return NextResponse.json("Error: Missing id", { status: 401 });
+    return NextResponse.json({ error: "User ID missing" }, { status: 401 });
   }
 
   try {

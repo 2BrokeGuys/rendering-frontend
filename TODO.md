@@ -1,7 +1,6 @@
 # TODO
 
 - [ ] Build APIs
-  - [ ] Submit Job
   - [ ] Update Output File Metadata to DB
 - [ ] Send Emails
   - [ ] Credits Bought
@@ -12,15 +11,8 @@
 - [ ] Test the System
 
 - [ ] Frontend
+  - [ ] Refactor
   - [ ] Redesign
-  - [ ] Pages
-    - [ ] Dashboard Page
-    - [ ] Profile Page
-    - [ ] Rendering Page
-    - [ ] About (How it works) Page
-  - [ ] API Integration
 - [ ] Backend
-  - [ ] S3 Integration
-  - [ ] Rate Limiting
+  - [ ] Rate Limiting (Paid Plans?)
   - [ ] GPU Worker
-  - [ ] AWS SQS (Job Queue)
