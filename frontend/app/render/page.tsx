@@ -14,8 +14,44 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { Slider } from "@/components/ui/slider";
+import { Input } from "@/components/ui/input";
 
 type UploadStage = "idle" | "selected" | "uploading" | "complete";
+
+const ResolutionToHeightAndWidth = new Map<
+  string,
+  { resolutionWidth: number; resolutionHeight: number }
+>([
+  [
+    "720p",
+    {
+      resolutionWidth: 1280,
+      resolutionHeight: 720,
+    },
+  ],
+  [
+    "1080p",
+    {
+      resolutionWidth: 1920,
+      resolutionHeight: 1080,
+    },
+  ],
+  [
+    "1440p",
+    {
+      resolutionWidth: 2560,
+      resolutionHeight: 1440,
+    },
+  ],
+  [
+    "4k",
+    {
+      resolutionWidth: 3840,
+      resolutionHeight: 2160,
+    },
+  ],
+]);
 
 export default function Page() {
   const [file, setFile] = useState<File | null>(null);
@@ -23,9 +59,16 @@ export default function Page() {
   const [progress, setProgress] = useState(0);
   const [resolution, setResolution] = useState<string>("720p");
   const [jobType, setJobType] = useState<string>("image");
+  const [resolutionPercentage, setResolutionPercentage] = useState(100);
+  const [startFrameValue, setStartFrameValue] = useState(1);
+  const [endFrameValue, setEndFrameValue] = useState(1);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const allowedFileTypes = [".fbx", ".blend"];
+
+  const handleChangeResolutionPercentage = (value: number[]) => {
+    setResolutionPercentage(value[0]);
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -133,8 +176,36 @@ export default function Page() {
     }
   };
 
-  const submitRenderJob = () => {
-    console.log("Submitting render job with resolution:", resolution);
+  const submitRenderJob = async () => {
+    const response = await fetch("/api/jobs", {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({
+        fileName: file?.name,
+        jobType: jobType,
+        renderResolutionHeight:
+          ResolutionToHeightAndWidth.get(resolution)?.resolutionHeight,
+        renderResolutionWidth:
+          ResolutionToHeightAndWidth.get(resolution)?.resolutionWidth,
+        renderResolutionPercentage: resolutionPercentage,
+        framesTotal: endFrameValue - startFrameValue + 1,
+        frameStart: jobType === "image" ? 1 : startFrameValue,
+        frameEnd: jobType === "image" ? 1 : endFrameValue,
+      }),
+    });
+
+    const responseMessage = await response.json();
+
+    if (response.status === 201) {
+      return toast.success("Jobs created Successfully", {
+        description: responseMessage.message,
+      });
+    }
+
+    toast.error(
+      "An Error occurred while submitting the Job, Please try again later.",
+      { description: responseMessage.error },
+    );
   };
 
   const resetUpload = () => {
@@ -290,10 +361,43 @@ export default function Page() {
                       <SelectContent>
                         <SelectItem value="720p">720p</SelectItem>
                         <SelectItem value="1080p">1080p</SelectItem>
+                        <SelectItem value="1440p">1440p</SelectItem>
                         <SelectItem value="4k">4K</SelectItem>
                       </SelectContent>
                     </Select>
+                    <label className="text-sm font-medium">
+                      Change Resolution Percentage
+                    </label>
+                    <Slider
+                      onValueChange={handleChangeResolutionPercentage}
+                      defaultValue={[resolutionPercentage]}
+                      min={1}
+                      max={100}
+                      step={1}
+                    />
                   </div>
+                  {jobType === "animation" && (
+                    <div>
+                      <label className="text-sm font-medium">Start Frame</label>
+                      <Input
+                        min={1}
+                        value={startFrameValue}
+                        onChange={(e) =>
+                          setStartFrameValue(Number(e.target.value))
+                        }
+                        type="number"
+                      />
+                      <label className="text-sm font-medium">End Frame</label>
+                      <Input
+                        min={1}
+                        value={endFrameValue}
+                        onChange={(e) =>
+                          setEndFrameValue(Number(e.target.value))
+                        }
+                        type="number"
+                      />
+                    </div>
+                  )}
 
                   <div className="flex justify-end space-x-2">
                     <Button variant="outline" onClick={resetUpload}>
