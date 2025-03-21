@@ -1,4 +1,2 @@
-fastapi
-python-multipart
-uvicorn
-uuid
+boto3
+requests
