@@ -1,23 +1,10 @@
 import os
 import uuid
 import subprocess
-from fastapi import FastAPI, File, UploadFile
-from fastapi.responses import FileResponse
-from fastapi.middleware.cors import CORSMiddleware
-
-app = FastAPI()
-
-origins = [
-    "http://localhost:3000",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+import boto3
+import requests
+import time
+import json
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
@@ -26,43 +13,70 @@ OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-@app.post("/render/")
-async def render_blend(file: UploadFile = File(...)):
-    """
-    Receives a .blend file, renders it, and returns the output image.
-    """
-    
-    file_ext = file.filename.split(".")[-1]
-    if file_ext != "blend":
-        return {"error": "Only .blend files are supported"}
+sqs = boto3.client("sqs", region_name="your-region")
+QUEUE_URL = "queue-url"
 
-    file_id = str(uuid.uuid4())
-    blend_path = os.path.join(UPLOAD_DIR, f"{file_id}.blend")
-    output_base = os.path.join(OUTPUT_DIR, f"{file_id}_output")
-    expected_output_path = f"{output_base}0001.png"
+def download_file(url, save_path):
+    response = requests.get(url)
+    response.raise_for_status()
+    with open(save_path, "wb") as f:
+        f.write(response.content)
 
-    with open(blend_path, "wb") as f:
-        f.write(await file.read())
+def process_task(task):
+    try:
+        task_data = json.loads(task["Body"])
+        file_id = str(uuid.uuid4())
+        blend_path = os.path.join(UPLOAD_DIR, f"{file_id}.blend")
 
-    render_command = [
-        "blender", "-b", blend_path,  # Run in background
-        "--python-expr", 
-        "import bpy; bpy.context.scene.render.engine = 'CYCLES'; "
-        "bpy.context.preferences.addons['cycles'].preferences.compute_device_type = 'CUDA'; "
-        "for device in bpy.context.preferences.addons['cycles'].preferences.get_devices(): "
-        "device.use = True",  # Enable all CUDA devices
-        "-o", output_base,  # Output path (without extension)
-        "-F", "PNG", "-x", "1",  # PNG format with auto extension
-        "-f", "1"  # Render frame 1
-    ]
+        download_file(task_data["rawFileUrl"], blend_path)
 
-    process = subprocess.run(render_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output_base = os.path.join(OUTPUT_DIR, f"{file_id}_output")
 
-    if process.returncode != 0:
-        return {"error": "Blender rendering failed", "details": process.stderr.decode()}
+        render_command = [
+            "blender", "-b", blend_path,
+            "--python-expr",
+            f"import bpy; bpy.context.scene.render.engine = 'CYCLES'; "
+            f"bpy.context.preferences.addons['cycles'].preferences.compute_device_type = 'CUDA'; "
+            f"for device in bpy.context.preferences.addons['cycles'].preferences.get_devices(): device.use = True; "
+            f"bpy.context.scene.render.resolution_x = {task_data['renderResolutionWidth']}; "
+            f"bpy.context.scene.render.resolution_y = {task_data['renderResolutionHeight']}; "
+            f"bpy.context.scene.render.resolution_percentage = {task_data['renderResolutionPercentage']}; ",
+            "-o", output_base,
+            "-F", "PNG", "-x", "1",
+        ]
 
-    return FileResponse(expected_output_path, media_type="image/png")
+        if task_data["taskType"] == "image":
+            render_command += ["-f", str(task_data["frameToRender"])]
+
+        elif task_data["taskType"] == "anim":
+            render_command += ["-s", str(task_data["frameStart"]), "-e", str(task_data["frameEnd"]), "-a"]
+
+        process = subprocess.run(render_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        if process.returncode != 0:
+            print("Blender rendering failed:", process.stderr.decode())
+
+        print("Rendering complete for task:", task_data)
+
+    except Exception as e:
+        print("Error processing task:", str(e))
+
+def poll_sqs():
+    while True:
+        response = sqs.receive_message(
+            QueueUrl=QUEUE_URL,
+            MaxNumberOfMessages=1,
+            WaitTimeSeconds=10,
+            MessageAttributeNames=["All"],
+        )
+
+        messages = response.get("Messages", [])
+
+        for message in messages:
+            process_task(message)
+            sqs.delete_message(QueueUrl=QUEUE_URL, ReceiptHandle=message["ReceiptHandle"])
+
+        time.sleep(1)
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    poll_sqs()
