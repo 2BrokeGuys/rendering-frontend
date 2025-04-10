@@ -115,17 +115,19 @@ export default function Dashboard() {
     }
   }
 
-  useEffect(() => {
-    if (status !== "authenticated" || !session?.user?.email) return;
+   useEffect(() => {
+     if (status !== "authenticated" || !session?.user?.email) return;
 
-    if (activeView === "jobs") {
-      fetchJobs();
-    } else if (activeView === "rawFiles") {
-      fetchRawFiles();
-    } else if (activeView === "outputFiles") {
-      fetchOutputFiles();
-    }
-  }, [activeView, session, status]);
+     if (activeView === "jobs") {
+       fetchJobs();
+     } else if (activeView === "rawFiles") {
+       fetchRawFiles();
+     } else if (activeView === "outputFiles") {
+       fetchOutputFiles();
+     }
+   }, [activeView, session, status]);
+
+
 
   function handleViewChange(view: "jobs" | "rawFiles" | "outputFiles") {
     setActiveView(view);
@@ -157,6 +159,9 @@ export default function Dashboard() {
       </div>
     );
   }
+
+
+  
 
   return (
     <div className="min-h-screen flex">
@@ -214,22 +219,22 @@ export default function Dashboard() {
                 <table className="w-full">
                   <thead className="text-left">
                     <tr>
-                      <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                         Job ID
                       </th>
-                      <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                         Type
                       </th>
-                      <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                         Status
                       </th>
-                      <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                         Created
                       </th>
-                      <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                         Completed
                       </th>
-                      <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-right">
+                      <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider text-right">
                         Credits
                       </th>
                     </tr>
@@ -237,7 +242,7 @@ export default function Dashboard() {
                   <tbody className="divide-y divide-gray-200">
                     {jobs.map((job) => (
                       <tr key={job.job_id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
                           {job.job_id}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -337,7 +342,7 @@ export default function Dashboard() {
 
             {isOutputFilesLoading ? (
               <div className="p-6 rounded-lg border shadow-sm text-center">
-                <p className="text-gray-500">Loading your output files...</p>
+                <p className="text-black">Loading your output files...</p>
               </div>
             ) : outputFiles.length === 0 ? (
               <div className="p-6 rounded-lg border shadow-sm text-center">
@@ -350,10 +355,10 @@ export default function Dashboard() {
                 <table className="w-full">
                   <thead className="bg-gray-50 text-left">
                     <tr>
-                      <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-xs font-medium text-black uppercase tracking-wider">
                         File Name
                       </th>
-                      <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-xs font-medium text-black uppercase tracking-wider">
                         Job ID
                       </th>
                     </tr>
@@ -361,7 +366,7 @@ export default function Dashboard() {
                   <tbody className="divide-y divide-gray-200">
                     {outputFiles.map((file, index) => (
                       <tr key={index} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                        <td className="px-6 py-4 text-sm font-medium text-white">
                           <div className="flex items-center space-x-3">
                             <div className="text-gray-400">
                               <svg
@@ -382,7 +387,7 @@ export default function Dashboard() {
                             <span>{file.file_name}</span>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                           {file.job_id}
                         </td>
                       </tr>

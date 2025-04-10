@@ -16,3 +16,13 @@
 - [ ] Backend
   - [ ] Rate Limiting (Paid Plans?)
   - [ ] GPU Worker
+
+Features
+-> Render Status or Loading element
+-> Solana wallet connect
+->
+
+Refactoring
+-> Landing page
+-> Footer
+-> Pricing

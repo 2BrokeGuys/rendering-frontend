@@ -2,6 +2,7 @@
 
 import HeroSection from "@/components/HeroSection";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ArrowRight,
   Code,
@@ -11,6 +12,7 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Page = () => {
   return (
@@ -86,6 +88,63 @@ const Page = () => {
           </div>
         </div>
       </div>
+
+      <section id="showcase" className="py-20 md:py-32 border-b">
+            <div className="container">
+              <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 className="text-3xl md:text-4xl font-bold">Stunning projects rendered on our platform*</h2>
+                <p className="text-muted-foreground text-lg">
+                  Browse through a collection of incredible work created by our users.
+                </p>
+              </div>
+
+              <Tabs defaultValue="all" className="mb-8">
+                <TabsList className="mx-auto flex justify-center">
+                  <TabsTrigger value="all">All</TabsTrigger>
+                  <TabsTrigger value="architecture">Architecture</TabsTrigger>
+                  <TabsTrigger value="product">Product</TabsTrigger>
+                  <TabsTrigger value="animation">Animation</TabsTrigger>
+                  <TabsTrigger value="vfx">VFX</TabsTrigger>
+                </TabsList>
+                <TabsContent value="all" className="mt-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {[...Array(6)].map((_, i) => (
+                      <div key={i} className="group relative overflow-hidden rounded-lg border">
+                        <div className="aspect-video overflow-hidden">
+                          <Image
+                            src={`/showcase${i + 1}.jpg`}
+                            alt={`Showcase render ${i + 1}`}
+                            width={640}
+                            height={360}
+                            className="object-cover transition-transform group-hover:scale-105"
+                          />
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                          <h3 className="font-bold text-lg">Project Title {i + 1}</h3>
+                          <p className="text-sm text-muted-foreground">By Studio Name</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </TabsContent>
+                {["architecture", "product", "animation", "vfx"].map((tab) => (
+                  <TabsContent key={tab} value={tab}>
+                    <div className="text-center py-12">
+                      <p className="text-muted-foreground">Loading {tab} projects...</p>
+                    </div>
+                  </TabsContent>
+                ))}
+              </Tabs>
+
+              <div className="text-center">
+                <Button variant="outline" size="lg">
+                  View All Projects
+                </Button>
+              </div>
+            </div>
+          </section>
+
+
     </div>
   );
 };
