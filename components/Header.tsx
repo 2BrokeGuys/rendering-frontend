@@ -16,26 +16,27 @@ const Navbar = ({ credits }: NavbarProps) => {
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
-          <Link href={"/"} className="text-xl font-bold">
+          <Link href={"/"} className="flex gap-4 text-xl font-bold">
+          <Image src={'/RB_W.png'} height={35} width={35} alt="logo"></Image>
             RenderBro
           </Link>
         </div>
         <nav className="hidden md:flex items-center gap-6">
           <Link
             href="/about"
-            className="text-sm font-medium  hover:translate-y-1/4"
+            className="text-sm font-medium text-slate-400 hover:text-white"
           >
             How It Works
           </Link>
           <Link
             href="/pricing"
-            className="text-sm font-medium  hover:translate-y-1/4"
+            className="text-sm font-medium text-slate-400 hover:text-white"
           >
             Pricing
           </Link>
           <Link
             href="/dashboard"
-            className="text-sm font-medium  hover:translate-y-1/4"
+            className="text-sm font-medium text-slate-400 hover:text-white"
           >
             Dashboard
           </Link>

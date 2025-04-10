@@ -4,11 +4,9 @@ import HeroSection from "@/components/HeroSection";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
-  Cloud,
   Code,
   Gauge,
   LucideIcon,
-  Play,
   Shield,
   Users,
 } from "lucide-react";
@@ -29,7 +27,7 @@ const Page = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 gap-8">
           {[
             {
               icon: Gauge,
@@ -38,23 +36,12 @@ const Page = () => {
                 "Render complex scenes up to 10x faster than traditional methods with our distributed cloud infrastructure.",
             },
             {
-              icon: Cloud,
-              title: "Scalable Cloud Infrastructure",
+              icon: Code,
+              title: "Scalable Distributed Infrastructure",
               description:
                 "Scale from a single frame to thousands with automatic resource allocation that grows with your needs.",
             },
-            {
-              icon: Code,
-              title: "Multi-Engine Support",
-              description:
-                "Compatible with all major rendering engines including V-Ray, Octane, Redshift, Arnold, and more.",
-            },
-            {
-              icon: Play,
-              title: "Real-Time Preview",
-              description:
-                "Monitor your renders in real-time with our interactive preview system, making adjustments on the fly.",
-            },
+            
             {
               icon: Users,
               title: "Team Collaboration",
@@ -86,20 +73,15 @@ const Page = () => {
               Ready to transform your rendering workflow?
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Join thousands of artists and studios who have already accelerated
-              their creative process with RenderBro.
+              Join RenderBro and accelarate your creative process.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/render">
-                <Button size="lg" className="gap-2">
+                <Button size="lg" className="gap-2 border-2 border- zinc-300" >
                   Start Free Trial
                   <ArrowRight className="size-4" />
                 </Button>
               </Link>
-
-              <Button size="lg" variant="outline" className="gap-2">
-                Schedule a Demo
-              </Button>
             </div>
           </div>
         </div>
