@@ -21,7 +21,7 @@ export default {
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui"],
       },
-      
+
       colors: {
         lime: "#C7F41C",
         darklime: "#95B618",
@@ -69,9 +69,9 @@ export default {
       },
       borderRadius: {
         DEFAULT: "var(--radius)",
-         lg: "calc(var(--radius) + 2px)",
-         md: "calc(var(--radius) - 2px)",
-         sm: "calc(var(--radius) - 4px)",
+        lg: "calc(var(--radius) + 2px)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
     },
   },

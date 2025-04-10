@@ -17,7 +17,7 @@ const Navbar = ({ credits }: NavbarProps) => {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href={"/"} className="flex gap-4 text-xl font-bold">
-          <Image src={'/RB_W.png'} height={35} width={35} alt="logo"></Image>
+            <Image src={"/RB_W.png"} height={35} width={35} alt="logo"></Image>
             RenderBro
           </Link>
         </div>

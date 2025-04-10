@@ -115,19 +115,17 @@ export default function Dashboard() {
     }
   }
 
-   useEffect(() => {
-     if (status !== "authenticated" || !session?.user?.email) return;
+  useEffect(() => {
+    if (status !== "authenticated" || !session?.user?.email) return;
 
-     if (activeView === "jobs") {
-       fetchJobs();
-     } else if (activeView === "rawFiles") {
-       fetchRawFiles();
-     } else if (activeView === "outputFiles") {
-       fetchOutputFiles();
-     }
-   }, [activeView, session, status]);
-
-
+    if (activeView === "jobs") {
+      fetchJobs();
+    } else if (activeView === "rawFiles") {
+      fetchRawFiles();
+    } else if (activeView === "outputFiles") {
+      fetchOutputFiles();
+    }
+  }, [activeView, session, status]);
 
   function handleViewChange(view: "jobs" | "rawFiles" | "outputFiles") {
     setActiveView(view);
@@ -159,9 +157,6 @@ export default function Dashboard() {
       </div>
     );
   }
-
-
-  
 
   return (
     <div className="min-h-screen flex">

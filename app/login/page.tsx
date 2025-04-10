@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 
-export default function login() {
+export default function Page() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { status } = useSession();
@@ -30,6 +30,7 @@ export default function login() {
         setLoading(false);
       }
     } catch (err) {
+      console.error(err);
       setError("Something went wrong. Please try again later.");
       setLoading(false);
     }
@@ -49,7 +50,8 @@ export default function login() {
 
         <h2 className="text-3xl font-bold">Welcome to RenderBro</h2>
         <p className="text-muted-foreground text-lg">
-          Experience high-performance cloud rendering with scalable plans tailored to your needs. Sign in to start rendering instantly.
+          Experience high-performance cloud rendering with scalable plans
+          tailored to your needs. Sign in to start rendering instantly.
         </p>
 
         <Button
